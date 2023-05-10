@@ -4,13 +4,19 @@ let todos = []
 // form
 
 let form = document.forms.toDo
-let input = document.querySelector('input')
+let input = form.querySelector('input')
+let btn = form.querySelector('button')
+
 
 form.onsubmit = (event) => {
     event.preventDefault()
     let inputFIlled = true
     input.style.border = '2px solid #007FFF'
+    btn.style.backgroundColor = '#0071E3'
+    btn.style.opacity = '1'
     if (input.value.length === 0) {
+        btn.style.opacity = '.5'
+        btn.style.backgroundColor = 'red'
         input.style.border = '2px solid red'
         inputFIlled = false
     }
@@ -61,6 +67,11 @@ function reload(arr, place) {
         itemParent.append(item)
         place.append(itemParent)
 
+        h3.onclick = () => {
+            card.isDone = !card.isDone
+            h3.classList.toggle('line')
+        }
+
         exit.onclick = () => {
             todos = todos.filter(el => el !== card)
             item.style.opacity = "0"
@@ -68,10 +79,6 @@ function reload(arr, place) {
             setTimeout(() => {
                 itemParent.style.display = "none"
             }, 600);
-        }
-        h3.onclick = () => {
-            card.isDone = !card.isDone
-            h3.classList.toggle('line')
         }
     }
 }
