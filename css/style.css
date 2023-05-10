@@ -110,12 +110,12 @@ h6 {
       font-weight: 500;
       font-size: 18px;
       text-align: center;
-      color: #FFFFFF;
-      transition: .3s linear; }
+      color: #FFFFFF; }
       .top_content .row button:hover {
         background: #0071e382; }
     .top_content .row input,
     .top_content .row button {
+      transition: .3s linear;
       height: 42px;
       border-radius: 10px; }
 

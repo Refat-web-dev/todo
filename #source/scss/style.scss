@@ -132,7 +132,6 @@ h6 {
             font-size: 18px;
             text-align: center;
             color: #FFFFFF;
-            transition: .3s linear;
 
             &:hover {
                 background: #0071e382;
@@ -142,6 +141,7 @@ h6 {
         input,
         button {
 
+            transition: .3s linear;
             height: 42px;
             border-radius: 10px;
         }
