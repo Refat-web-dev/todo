@@ -21,10 +21,19 @@ form.onsubmit = (event) => {
         inputFIlled = false
     }
     if (inputFIlled) {
+        let hours = new Date().getHours()
+        let minutes = new Date().getMinutes()
+        if (hours.toString().length === 1) {
+            hours = '0' + hours
+        }
+        if (minutes.toString().length === 1) {
+
+            minutes = '0' + minutes
+        }
         let task = {
             id: Math.random(),
             isDone: false,
-            time: new Date().getHours() + ':' + new Date().getMinutes()
+            time: hours + ':' + minutes
         }
 
         let fm = new FormData(form)
@@ -65,7 +74,7 @@ function reload(arr, place) {
         item.append(h3, time, exit)
         time.append(p)
         itemParent.append(item)
-        place.append(itemParent)
+        place.prepend(itemParent)
 
         h3.onclick = () => {
             card.isDone = !card.isDone
