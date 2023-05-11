@@ -130,8 +130,9 @@ h6 {
 
 .itemParent {
   position: relative;
-  width: fit-content;
-  overflow: hidden; }
+  width: 282px;
+  overflow: hidden;
+  transition: .5s linear; }
 
 .item {
   position: absolute;
@@ -161,7 +162,7 @@ h6 {
     font-weight: 500;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.55); }
-  .item .exit {
+  .item .close {
     position: absolute;
     top: 23px;
     right: 25px;

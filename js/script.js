@@ -57,21 +57,21 @@ function reload(arr, place) {
         let h3 = document.createElement('h3')
         let time = document.createElement('div')
         let p = document.createElement('p')
-        let exit = document.createElement('div')
+        let close = document.createElement('div')
 
         // styling
 
         itemParent.classList.add('itemParent')
         item.classList.add('item')
         time.classList.add('time')
-        exit.classList.add('exit')
+        close.classList.add('close')
 
         h3.innerHTML = card.note
         p.innerHTML = card.time
 
         // append
 
-        item.append(h3, time, exit)
+        item.append(h3, time, close)
         time.append(p)
         itemParent.append(item)
         place.prepend(itemParent)
@@ -81,10 +81,11 @@ function reload(arr, place) {
             h3.classList.toggle('line')
         }
 
-        exit.onclick = () => {
+        close.onclick = () => {
             todos = todos.filter(el => el !== card)
             item.style.opacity = "0"
             item.style.left = "-100%"
+            itemParent.style.width = "0"
             setTimeout(() => {
                 itemParent.style.display = "none"
             }, 600);

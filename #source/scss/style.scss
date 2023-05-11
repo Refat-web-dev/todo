@@ -162,8 +162,9 @@ h6 {
 
 .itemParent {
     position: relative;
-    width: fit-content;
+    width: 282px;
     overflow: hidden;
+    transition: .5s linear;
 }
 
 .item {
@@ -200,7 +201,7 @@ h6 {
     }
 
 
-    .exit {
+    .close {
         position: absolute;
         top: 23px;
         right: 25px;
