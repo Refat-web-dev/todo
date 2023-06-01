@@ -12,7 +12,7 @@ const getAllData = async () => {
         }
 
     } catch (e) {
-        allert("connection error")
+        alert("connection error")
     }
 }
 getAllData()
@@ -74,7 +74,7 @@ const createNewTask = async (body) => {
             getAllData()
         }
     } catch (e) {
-        allert("connection error")
+        alert("connection error")
     }
 }
 
@@ -132,7 +132,7 @@ function reload(arr,) {
                     console.log(card.isDone);
                 }
             } catch (e) {
-                allert("connection error")
+                alert("connection error")
             }
         }
 
@@ -151,7 +151,7 @@ function reload(arr,) {
                     console.log(todos);
                 }
             } catch (e) {
-                allert("connection error")
+                alert("connection error")
             }
         }
 
