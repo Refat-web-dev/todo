@@ -115,7 +115,7 @@ function reload(arr,) {
             const newData = { ...card, isDone: !card.isDone }
             try {
                 const res = await fetch(base_url + "/todos/" + card.id, {
-                    method: "PATCH",
+                    method: "PUT",
                     body: JSON.stringify(newData),
                     headers: {
                         "Content-Type": "application/json"
@@ -148,10 +148,10 @@ function reload(arr,) {
                     setTimeout(() => {
                         itemParent.style.display = "none"
                     }, 600);
-                    console.log(todos);
                 }
             } catch (e) {
                 alert("connection error")
+                console.log(e);
             }
         }
 
