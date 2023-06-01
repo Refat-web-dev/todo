@@ -1,6 +1,21 @@
 let cards = document.querySelector('.cards')
-let todos = []
 
+let base_url = "http://localhost:6969"
+// get data
+
+const getAllData = async () => {
+    try {
+        let res = await fetch(base_url + "/todos")
+        if (res.status === 200 || res.status === 201) {
+            const data = await res.json()
+            reload(data)
+        }
+
+    } catch (e) {
+        allert("connection error")
+    }
+}
+getAllData()
 // form
 
 let form = document.forms.toDo
@@ -30,25 +45,41 @@ form.onsubmit = (event) => {
 
             minutes = '0' + minutes
         }
+
         let task = {
             id: Math.random(),
-            isDone: false,
-            time: hours + ':' + minutes
         }
+        task.isDone = false
+        task.time = hours + ':' + minutes
 
         let fm = new FormData(form)
         fm.forEach((value, key) => {
             task[key] = value
         })
         form.reset()
-        todos.push(task)
-        reload(todos, cards)
+        createNewTask(task)
     }
 
 }
+const createNewTask = async (body) => {
+    try {
+        const res = await fetch(base_url + "/todos", {
+            method: "post",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        if (res.status === 200 || res.status === 201) {
+            getAllData()
+        }
+    } catch (e) {
+        allert("connection error")
+    }
+}
 
-function reload(arr, place) {
-    place.innerHTML = ''
+function reload(arr,) {
+    cards.innerHTML = ''
     for (let card of arr) {
         // create
 
@@ -68,28 +99,61 @@ function reload(arr, place) {
 
         h3.innerHTML = card.note
         p.innerHTML = card.time
-
+        if (card.isDone) {
+            h3.classList.add('line')
+        } else {
+            h3.classList.remove('line')
+        }
         // append
 
         item.append(h3, time, close)
         time.append(p)
         itemParent.append(item)
-        place.prepend(itemParent)
+        cards.prepend(itemParent)
 
-        h3.onclick = () => {
-            card.isDone = !card.isDone
-            h3.classList.toggle('line')
+        h3.onclick = async () => {
+            const newData = { ...card, isDone: !card.isDone }
+            try {
+                const res = await fetch(base_url + "/todos/" + card.id, {
+                    method: "PATCH",
+                    body: JSON.stringify(newData),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                if (res.status === 200 || res.status === 201) {
+                    card.isDone = !card.isDone
+
+                    if (card.isDone) {
+                        h3.classList.add('line')
+                    } else {
+                        h3.classList.remove('line')
+                    }
+                    console.log(card.isDone);
+                }
+            } catch (e) {
+                allert("connection error")
+            }
         }
 
-        close.onclick = () => {
-            todos = todos.filter(el => el !== card)
-            item.style.opacity = "0"
-            item.style.left = "-100%"
-            itemParent.style.width = "0"
-            setTimeout(() => {
-                itemParent.style.display = "none"
-            }, 600);
+        close.onclick = async () => {
+            try {
+                const res = await fetch(base_url + "/todos/" + card.id, {
+                    method: "delete",
+                })
+                if (res.status === 200 || res.status === 201) {
+                    item.style.opacity = "0"
+                    item.style.left = "-100%"
+                    itemParent.style.width = "0"
+                    setTimeout(() => {
+                        itemParent.style.display = "none"
+                    }, 600);
+                    console.log(todos);
+                }
+            } catch (e) {
+                allert("connection error")
+            }
         }
+
     }
 }
-console.log(todos);
